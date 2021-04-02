@@ -14,7 +14,11 @@ config :absinthe_phoenix_example,
 config :absinthe_phoenix_example, AbsinthePhoenixExampleWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "KIy0s5DreHSCQGdlMFqm9eUxCyP2FlL1LKo2rHbvDmGUxdVt7EApz2s6ijc4UBcv",
-  render_errors: [view: AbsinthePhoenixExampleWeb.ErrorView, accepts: ~w(html json), layout: false],
+  render_errors: [
+    view: AbsinthePhoenixExampleWeb.ErrorView,
+    accepts: ~w(html json),
+    layout: false
+  ],
   pubsub_server: AbsinthePhoenixExample.PubSub,
   live_view: [signing_salt: "D6AMNWoc"]
 

@@ -46,11 +46,12 @@ defmodule AbsinthePhoenixExampleWeb.Router do
   scope "/" do
     pipe_through(:api)
 
-    forward("/api", Absinthe.Plug, schema: ScrmWeb.Schema, json_codec: Jason)
+    forward("/api", Absinthe.Plug, schema: AbsinthePhoenixExampleWeb.Schema, json_codec: Jason)
 
     forward("/graphiql", Absinthe.Plug.GraphiQL,
       schema: AbsinthePhoenixExampleWeb.Schema,
       json_codec: Jason,
+      socket: AbsinthePhoenixExampleWeb.UserSocket,
       interface: :playground
     )
   end

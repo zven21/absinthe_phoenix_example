@@ -1,5 +1,6 @@
 defmodule AbsinthePhoenixExampleWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :absinthe_phoenix_example
+  use Absinthe.Phoenix.Endpoint
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.

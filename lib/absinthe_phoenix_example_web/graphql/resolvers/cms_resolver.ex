@@ -4,7 +4,10 @@ defmodule AbsinthePhoenixExampleWeb.Resolvers.CMS do
   alias AbsinthePhoenixExample.CMS
 
   @doc false
-  def resolve_get_post(%{id: id}, _), do: CMS.get_post(id)
+  def resolve_get_posts(_, _), do: {:ok, CMS.list_posts()}
+
+  @doc false
+  def resolve_get_post(%{id: id}, _), do: {:ok, CMS.get_post!(id)}
 
   @doc false
   def resolve_delete_post(_, %{id: id}, _info) do

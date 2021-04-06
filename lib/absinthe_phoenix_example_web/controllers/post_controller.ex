@@ -86,7 +86,7 @@ defmodule AbsinthePhoenixExampleWeb.PostController do
       nil ->
         conn
 
-      value ->
+      _value ->
         conn
         |> put_flash(:info, "Post deleted successfully.")
         |> redirect(to: Routes.post_path(conn, :index))

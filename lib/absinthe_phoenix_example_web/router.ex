@@ -42,4 +42,16 @@ defmodule AbsinthePhoenixExampleWeb.Router do
       live_dashboard "/dashboard", metrics: AbsinthePhoenixExampleWeb.Telemetry
     end
   end
+
+  scope "/" do
+    pipe_through(:api)
+
+    forward("/api", Absinthe.Plug, schema: ScrmWeb.Schema, json_codec: Jason)
+
+    forward("/graphiql", Absinthe.Plug.GraphiQL,
+      schema: AbsinthePhoenixExampleWeb.Schema,
+      json_codec: Jason,
+      interface: :playground
+    )
+  end
 end

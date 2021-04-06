@@ -5,16 +5,16 @@ defmodule AbsinthePhoenixExampleWeb.Schema.CMS.Mutations.Post do
 
   object :cms_post_mutations do
     field :create_post, :post do
-      arg(:title, non_null(:string))
-      arg(:body, non_null(:string))
+      arg(:post, non_null(:post_args))
 
       resolve(&R.CMS.resolve_create_post/3)
     end
 
     field :update_post, :post do
       arg(:id, non_null(:id))
-      arg(:title, non_null(:string))
-      arg(:body, non_null(:string))
+      arg(:post, non_null(:post_args))
+      # arg(:title, non_null(:string))
+      # arg(:body, non_null(:string))
 
       resolve(&R.CMS.resolve_update_post/3)
     end

@@ -17,12 +17,12 @@ defmodule AbsinthePhoenixExampleWeb.Resolvers.CMS do
   end
 
   @doc false
-  def resolve_create_post(_, args, _), do: CMS.create_post(args)
+  def resolve_create_post(_, %{post: post}, _), do: CMS.create_post(post)
 
   @doc false
-  def resolve_update_post(_, %{id: id} = args, _) do
+  def resolve_update_post(_, %{id: id, post: post} = _args, _) do
     id
     |> CMS.get_post!()
-    |> CMS.update_post(args)
+    |> CMS.update_post(post)
   end
 end

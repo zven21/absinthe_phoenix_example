@@ -20,6 +20,8 @@ defmodule AbsinthePhoenixExampleWeb.PostController do
     }
   """
   def index(conn, %{data: data}) do
+    IO.inspect(data, label: "data")
+
     render(conn, "index.html", posts: data.posts)
   end
 
@@ -28,16 +30,34 @@ defmodule AbsinthePhoenixExampleWeb.PostController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"post" => post_params}) do
-    case CMS.create_post(post_params) do
-      {:ok, post} ->
+  @graphql """
+  mutation ($post: PostArgs!) {
+    create_post (post: $post) {
+      id
+      title
+      body
+    }
+  }
+  """
+  def create(conn, %{data: data}) do
+    IO.inspect(data, label: "data")
+
+    case data.create_post do
+      _ ->
         conn
         |> put_flash(:info, "Post created successfully.")
-        |> redirect(to: Routes.post_path(conn, :show, post))
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        |> redirect(to: Routes.post_path(conn, :show, data.create_post.id))
     end
+
+    # case CMS.create_post(post_params) do
+    #   {:ok, post} ->
+    #     conn
+    #     |> put_flash(:info, "Post created successfully.")
+    #     |> redirect(to: Routes.post_path(conn, :show, post))
+
+    #   {:error, %Ecto.Changeset{} = changeset} ->
+    #     render(conn, "new.html", changeset: changeset)
+    # end
   end
 
   @graphql """

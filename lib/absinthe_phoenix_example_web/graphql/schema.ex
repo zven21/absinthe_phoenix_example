@@ -5,6 +5,8 @@ defmodule AbsinthePhoenixExampleWeb.Schema do
 
   # import_types(Util.CommonTypes)
 
+  alias AbsinthePhoenixExampleWeb.Middleware, as: M
+
   # types
   import_types(Absinthe.Type.Custom)
 
@@ -21,6 +23,15 @@ defmodule AbsinthePhoenixExampleWeb.Schema do
   @desc "the root of mutation."
   mutation do
     import_fields(:cms_post_mutations)
+  end
+
+  def middleware(middleware, _field, %{identifier: :mutation}) do
+    middleware
+    # middleware ++ [M.ChangesetErrors]
+  end
+
+  def middleware(middleware, _field, _object) do
+    middleware
   end
 
   def plugins do

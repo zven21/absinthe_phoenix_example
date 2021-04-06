@@ -26,8 +26,8 @@ defmodule AbsinthePhoenixExampleWeb.Schema do
   end
 
   def middleware(middleware, _field, %{identifier: :mutation}) do
-    middleware
-    # middleware ++ [M.ChangesetErrors]
+    # middleware
+    middleware ++ [M.ChangesetErrors]
   end
 
   def middleware(middleware, _field, _object) do

@@ -20,8 +20,6 @@ defmodule AbsinthePhoenixExampleWeb.PostController do
     }
   """
   def index(conn, %{data: data}) do
-    IO.inspect(data, label: "data")
-
     render(conn, "index.html", posts: data.posts)
   end
 
@@ -43,6 +41,9 @@ defmodule AbsinthePhoenixExampleWeb.PostController do
     IO.inspect(data, label: "data")
 
     case data.create_post do
+      nil ->
+        conn
+
       _ ->
         conn
         |> put_flash(:info, "Post created successfully.")
@@ -80,6 +81,15 @@ defmodule AbsinthePhoenixExampleWeb.PostController do
     render(conn, "edit.html", post: post, changeset: changeset)
   end
 
+  # @graphql """
+  # mutation ($id: ID!, $post: PostArgs!) {
+  #   update_post (id: $id, post: $post) {
+  #     id
+  #     title
+  #     body
+  #   }
+  # }
+  # """
   def update(conn, %{"id" => id, "post" => post_params}) do
     post = CMS.get_post!(id)
 
